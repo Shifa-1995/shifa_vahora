@@ -1,0 +1,19 @@
+//generation of status flag in 16 bit adder(testbench code)
+//Author : shifa vahora
+module alutest;
+reg [15:0] x,y;    //inputs
+wire [15:0]z;      //output
+wire s,zr,cy,p,v;  //outputs
+ALU DUT (.x(x), .y(y), .z(z), .sign(s), .zero(zr), .carry(cy), .parity(p), .overflow(v));    //module instantiations
+initial 
+begin
+$monitor ($time," x=%h, y=%h, z=%h, s=%b, zr=%b, cy=%b, v=%b, p=%b", x,y,z,z,zr,cy,p,v );   //monitoring the outputs
+#5 x = 16'h8fff; 
+   y = 16'h8000;         //inputs given for testing
+#5 x = 16'hfffe; 
+   y = 16'h0002;
+#5 x = 16'hAAAA; 
+   y = 16'h5555;
+#5 $finish;
+end 
+endmodule
